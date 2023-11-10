@@ -1,8 +1,15 @@
 console.log("\n %c HeoMusic 开源静态音乐播放器 v1.5 %c https://github.com/zhheo/HeoMusic \n", "color: #fadfa3; background: #030307; padding:5px 0;", "background: #fadfa3; padding:5px 0;")
-var heo = {	
+var volume = 0.8;
+
+// 获取地址栏参数
+// 创建URLSearchParams对象并传入URL中的查询字符串
+const params = new URLSearchParams(window.location.search);
+
+var heo = {
   // 音乐节目切换背景
   changeMusicBg: function (isChangeBg = true) {
     const heoMusicBg = document.getElementById("music_bg")
+
     if (isChangeBg) {
       // player loadeddata 会进入此处
       const musiccover = document.querySelector("#heoMusic-page .aplayer-pic");
@@ -16,78 +23,37 @@ var heo = {
       let timer = setInterval(()=>{
         const musiccover = document.querySelector("#heoMusic-page .aplayer-pic");
         // 确保player加载完成
-         //console.info(heoMusicBg);
+        // console.info(heoMusicBg);
         if (musiccover) {
           clearInterval(timer)
+          //初始化音量
+          document.querySelector('meting-js').aplayer.volume(0.8,true);
           // 绑定事件
-          //heo.addEventListenerChangeMusicBg();
+          heo.addEventListenerChangeMusicBg();
         }
       }, 100)
     }
   },
+  addEventListenerChangeMusicBg: function () {
+    const heoMusicPage = document.getElementById("heoMusic-page");
+    heoMusicPage.querySelector("meting-js").aplayer.on('loadeddata', function () {
+      heo.changeMusicBg();
+      // console.info('player loadeddata');
+    });
+  },
   getCustomPlayList: function() {
     const heoMusicPage = document.getElementById("heoMusic-page");
-    heoMusicPage.innerHTML = `<meting-js><div id="app"></div></meting-js>`;
-	var xhr = new XMLHttpRequest(),
-			volume = 0.5;
-	xhr.open('get', './music.json');
-	xhr.onreadystatechange = function () {
-		if (xhr.readyState === 4){
-			if (xhr.status === 200){
-				musicList = JSON.parse(xhr.responseText);
-				//console.info(musicList);
-				const aplayer = new APlayer({
-					container: document.getElementById("app"),
-					lrcType: 3,
-					order: 'random',
-					preload: 'auto',
-					mutex: true,
-					theme: '#b7daff',
-					volume: 0.5,
-					audio: musicList
-				});
-				aplayer.on('loadeddata', function () {
-				  heo.changeMusicBg();
-				  //console.info('player loadeddata');
-				});
-				//空格控制音乐
-				document.addEventListener("keydown", function(event) {
-				  //暂停开启音乐
-				  if (event.code === "Space") {
-					event.preventDefault();
-					aplayer.toggle();
-				  };
-				  //切换下一曲
-				  if (event.keyCode === 39) {
-					event.preventDefault();
-					aplayer.skipForward();
-				  };
-				  //切换上一曲
-				  if (event.keyCode === 37) {
-					event.preventDefault();
-					aplayer.skipBack();
-				  }
-				  //增加音量
-				  if (event.keyCode === 38) {
-					if (volume <= 1) {
-					  volume += 0.1;
-					  aplayer.volume(0.1,true);
-					}
-				  }
-				  //减小音量
-				  if (event.keyCode === 40) {
-					if (volume >= 0) {
-					  volume += -0.1;
-					  aplayer.volume(0.1,true);
-					}
-				  }
-			});
-			} else {
-				alert('很抱歉，没有获取到音乐数据哦~')
-			}
-		}
-	}
-	xhr.send();
+    const playlistType = params.get("type") || "playlist";
+    
+    if (params.get("id") && params.get("server")) {
+      console.log("获取到自定义内容")
+      var id = params.get("id")
+      var server = params.get("server")
+      heoMusicPage.innerHTML = `<meting-js id="${id}" server="${server}" type="${playlistType}" mutex="true" preload="auto" order="random"></meting-js>`;
+    } else {
+      console.log("无自定义内容")
+      heoMusicPage.innerHTML = `<meting-js id="${userId}" server="${userServer}" type="${userType}" mutex="true" preload="auto" order="random"></meting-js>`;
+    }
     heo.changeMusicBg(false);
   }
 }
@@ -111,3 +77,36 @@ function extractValue(input) {
   var match = valueRegex.exec(input);
   return match[1];
 }
+
+//空格控制音乐
+document.addEventListener("keydown", function(event) {
+  //暂停开启音乐
+  if (event.code === "Space") {
+    event.preventDefault();
+    document.querySelector('meting-js').aplayer.toggle();
+  };
+  //切换下一曲
+  if (event.keyCode === 39) {
+    event.preventDefault();
+    document.querySelector('meting-js').aplayer.skipForward();
+  };
+  //切换上一曲
+  if (event.keyCode === 37) {
+    event.preventDefault();
+    document.querySelector('meting-js').aplayer.skipBack();
+  }
+  //增加音量
+  if (event.keyCode === 38) {
+    if (volume <= 1) {
+      volume += 0.1;
+      document.querySelector('meting-js').aplayer.volume(volume,true);
+    }
+  }
+  //减小音量
+  if (event.keyCode === 40) {
+    if (volume >= 0) {
+      volume += -0.1;
+      document.querySelector('meting-js').aplayer.volume(volume,true);
+    }
+  }
+});
