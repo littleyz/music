@@ -16,7 +16,7 @@
 
 `左/右方向键`：上一曲/下一曲
 
-## 修改歌单/私有部署与配置
+## 修改歌单/私有部署与配置（适用于在线音乐）
 
 ### ID
 
@@ -26,9 +26,64 @@
 
 播放列表的服务商，例如`netease`（网易云音乐）,`tencent`（腾讯）,`kugou`（酷狗）,`xiami`（小米音乐）,`baidu`（百度音乐）
 
-### Type(可选）
+### Type（可选）
 
 播放列表的类型，例如`song`（单曲）, `playlist`（歌单，默认）, `album`（专辑）, `search`（搜索结果）, `artist`（歌手）
+
+### localMusic（可选）
+
+本地音乐/外链音乐。如果填写了本地音乐，则优先使用本地音乐。
+
+本地音乐需要添加loaclMusic数组，它的形式类似于：
+
+```
+  var localMusic = [{
+      name: '重生之我在异乡为异客',
+      artist: '王睿卓',
+      url: '/music/重生之我在异乡为异客.mp3',
+      cover: '/music/重生之我在异乡为异客.png',
+      lrc: '/music/重生之我在异乡为异客.lrc'
+  },
+  {
+      name: '落',
+      artist: '唐伯虎',
+      url: '/music/落.mp3',
+      cover: '/music/落.png',
+      lrc: '/music/落.lrc'
+  }
+  ];
+```
+
+### remoteMusic（可选）
+
+使用json格式的链接来进行读取localMusic，会覆盖localMusic的设置。
+
+例如：
+
+```
+var remoteMusic = './music.json';
+```
+
+musicjson内容例如：
+
+```
+[
+  {
+    "name": "重生之我在异乡为异客",
+    "artist": "王睿卓",
+    "url": "/music/重生之我在异乡为异客.mp3",
+    "cover": "/music/重生之我在异乡为异客.png",
+    "lrc": "/music/重生之我在异乡为异客.lrc"
+  },
+  {
+    "name": "落",
+    "artist": "唐伯虎",
+    "url": "/music/落.mp3",
+    "cover": "/music/落.png",
+    "lrc": "/music/落.lrc"
+  }
+]
+```
 
 ## 使用URL参数（推荐）
 
@@ -38,9 +93,9 @@ HeoMusic支持URL参数 `https://music.zhheo.com/?id=`+ id +`&server=` + server
 
 **HeoMusicTop:** https://music.zhheo.com/?id=8668419170&server=tencent
 
-**鸡你太美:** https://music.zhheo.com/?id=7363728147&server=netease
+**鸡你太美:** https://music.zhheo.com/?id=2762963245&server=netease
 
-## 修改HTML的方法（需要自行搭建）
+## 修改HTML的方法（适用于在线音乐和本地音乐）
 
 编辑`index.html`的相关代码，填写歌单id和服务商
 
