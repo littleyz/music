@@ -1,7 +1,184 @@
 [
-    {"url":"https://alist.hjyl.org/d/Music/I Surrender - Céline Dion.flac","name":"I Surrender","artist":"Céline Dion","cover":"https://api.cyrilstudio.top/bing/image.php/bing?rand=true","lrc":"https://alist.hjyl.org/d/Music/I Surrender - Céline Dion.lrc"},
-    {"url":"https://alist.hjyl.org/d/Music/Monsters - Katie Sky.flac","name":"Monsters","artist":"Katie Sky","cover":"https://api.cyrilstudio.top/bing/image.php/bing?rand=true","lrc":"https://alist.hjyl.org/d/Music/Monsters - Katie Sky.lrc"},
-    {"url":"https://alist.hjyl.org/d/Music/Nevada - Vicetone、Cozi Zuehlsdorff.flac","name":"Nevada","artist":"Vicetone、Cozi Zuehlsdorff","cover":"https://api.cyrilstudio.top/bing/image.php/bing?rand=true","lrc":"https://alist.hjyl.org/d/Music/Nevada - Vicetone、Cozi Zuehlsdorff.lrc"},
-    {"url":"https://alist.hjyl.org/d/Music/New Boy - 房东的猫.flac","name":"New Boy","artist":"房东的猫","cover":"https://api.cyrilstudio.top/bing/image.php/bing?rand=true","lrc":"https://alist.hjyl.org/d/Music/New Boy - 房东的猫.lrc"},
-    {"url":"https://alist.hjyl.org/d/Music/NEW BOY - 朴树.flac","name":"NEW BOY","artist":"朴树","cover":"https://api.cyrilstudio.top/bing/image.php/bing?rand=true","lrc":"https://alist.hjyl.org/d/Music/NEW BOY - 朴树.lrc"}
+    {
+        "name": "The Butterfly Lovers",
+        "artist": "Richard Clayderman",
+        "url": "The Butterfly Lovers - Richard Clayderman.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "一生有你",
+        "artist": "水木年华",
+        "url": "一生有你 - 水木年华.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "乌夜啼",
+        "artist": "管平湖",
+        "url": "乌夜啼 - 管平湖.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "二泉映月",
+        "artist": "阿炳",
+        "url": "二泉映月 - 阿炳.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "今天的爱人是谁",
+        "artist": "陈慧娴",
+        "url": "今天的爱人是谁 - 陈慧娴.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "凡人歌",
+        "artist": "李宗盛",
+        "url": "凡人歌 - 李宗盛.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "刀剑如梦",
+        "artist": "周华健",
+        "url": "刀剑如梦 - 周华健.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "可惜不是你",
+        "artist": "梁静茹",
+        "url": "可惜不是你 - 梁静茹.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "同桌的你",
+        "artist": "老狼",
+        "url": "同桌的你 - 老狼.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "夕阳之歌",
+        "artist": "梅艳芳",
+        "url": "夕阳之歌 - 梅艳芳.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "山丘",
+        "artist": "李宗盛",
+        "url": "山丘 - 李宗盛.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "平沙落雁",
+        "artist": "管平湖",
+        "url": "平沙落雁 - 管平湖.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "广陵散",
+        "artist": "管平湖",
+        "url": "广陵散 - 管平湖.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "广陵散",
+        "artist": "管平湖",
+        "url": "广陵散 - 管平湖.mp3",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "新写的旧歌",
+        "artist": "李宗盛",
+        "url": "新写的旧歌 - 李宗盛.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "春江花月夜",
+        "artist": "中央民族乐团",
+        "url": "春江花月夜 - 中央民族乐团.mp3",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "梁祝",
+        "artist": "中央民族乐团",
+        "url": "梁祝 - 中央民族乐团.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "欸乃",
+        "artist": "管平湖",
+        "url": "欸乃 - 管平湖.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "沧海一声笑",
+        "artist": "黄霑、罗大佑、徐克",
+        "url": "沧海一声笑 - 黄霑、罗大佑、徐克.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "碣石调幽兰",
+        "artist": "管平湖",
+        "url": "碣石调幽兰 - 管平湖.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "秋のススキ",
+        "artist": "岩代太郎",
+        "url": "秋のススキ - 岩代太郎.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "给自己的歌",
+        "artist": "李宗盛",
+        "url": "给自己的歌 - 李宗盛.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "美丽的神话",
+        "artist": "孙楠、韩红",
+        "url": "美丽的神话 - 孙楠、韩红.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "阳关三叠",
+        "artist": "管平湖",
+        "url": "阳关三叠 - 管平湖.mp3",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "难念的经",
+        "artist": "周华健",
+        "url": "难念的经 - 周华健.flac",
+        "cover": "",
+        "lrc": ""
+    },
+    {
+        "name": "鸥鹭忘机",
+        "artist": "管平湖",
+        "url": "鸥鹭忘机 - 管平湖.flac",
+        "cover": "",
+        "lrc": ""
+    }
 ]
