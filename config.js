@@ -16,4 +16,4 @@ var userType = "playlist";
 //     lrc: '/music/落.lrc'
 // }
 // ];
-var remoteMusic = "/music.json"
+var remoteMusic = "https://music.jiangyu.org/music.json"
