@@ -1,17 +1,17 @@
-console.log("\n %c HeoMusic 开源静态音乐播放器 %c https://github.com/zhheo/HeoMusic \n", "color: #fadfa3; background: #030307; padding:5px 0;", "background: #fadfa3; padding:5px 0;")
+console.log("\n %c HeoMusic 寮€婧愰潤鎬侀煶涔愭挱鏀惧櫒 %c https://github.com/zhheo/HeoMusic \n", "color: #fadfa3; background: #030307; padding:5px 0;", "background: #fadfa3; padding:5px 0;")
 var local = false;
-var isScrolling = false; // 添加全局变量 isScrolling，默认为 false
-var scrollTimer = null; // 添加定时器变量
-var animationFrameId = null; // 添加变量用于跟踪动画帧ID
+var isScrolling = false; // 娣诲姞鍏ㄥ眬鍙橀噺 isScrolling锛岄粯璁や负 false
+var scrollTimer = null; // 娣诲姞瀹氭椂鍣ㄥ彉閲�
+var animationFrameId = null; // 娣诲姞鍙橀噺鐢ㄤ簬璺熻釜鍔ㄧ敾甯D
 
 if (typeof userId === 'undefined') {
-  var userId = "8152976493"; // 替换为实际的默认值
+  var userId = "8152976493"; // 鏇挎崲涓哄疄闄呯殑榛樿鍊�
 }
 if (typeof userServer === 'undefined') {
-  var userServer = "netease"; // 替换为实际的默认值
+  var userServer = "netease"; // 鏇挎崲涓哄疄闄呯殑榛樿鍊�
 }
 if (typeof userType === 'undefined') {
-  var userType = "playlist"; // 替换为实际的默认值
+  var userType = "playlist"; // 鏇挎崲涓哄疄闄呯殑榛樿鍊�
 }
 
 if (typeof remoteMusic !== 'undefined' && remoteMusic) {
@@ -33,12 +33,12 @@ if (typeof remoteMusic !== 'undefined' && remoteMusic) {
 
 function loadMusicScript() {
   if (typeof localMusic === 'undefined' || !Array.isArray(localMusic) || localMusic.length === 0) {
-    // 如果 localMusic 为空数组或未定义，加载 Meting2.min.js
+    // 濡傛灉 localMusic 涓虹┖鏁扮粍鎴栨湭瀹氫箟锛屽姞杞� Meting2.min.js
     var script = document.createElement('script');
     script.src = './js/Meting.js';
     document.body.appendChild(script);
   } else {
-    // 否则加载 localEngine.js
+    // 鍚﹀垯鍔犺浇 localEngine.js
     var script = document.createElement('script');
     script.src = './js/localEngine.js';
     document.body.appendChild(script);
@@ -48,29 +48,29 @@ function loadMusicScript() {
 
 var volume = 0.8;
 
-// 获取地址栏参数
-// 创建URLSearchParams对象并传入URL中的查询字符串
+// 鑾峰彇鍦板潃鏍忓弬鏁�
+// 鍒涘缓URLSearchParams瀵硅薄骞朵紶鍏RL涓殑鏌ヨ瀛楃涓�
 const params = new URLSearchParams(window.location.search);
 
 var heo = {
-  // 处理滚动和触摸事件的通用方法
+  // 澶勭悊婊氬姩鍜岃Е鎽镐簨浠剁殑閫氱敤鏂规硶
   handleScrollOrTouch: function(event, isTouchEvent) {
-    // 检查事件的目标元素是否在相关区域内部
+    // 妫€鏌ヤ簨浠剁殑鐩爣鍏冪礌鏄惁鍦ㄧ浉鍏冲尯鍩熷唴閮�
     let targetElement = event.target;
     let isInTargetArea = false;
     
-    // 向上遍历DOM树，检查是否在目标区域内
+    // 鍚戜笂閬嶅巻DOM鏍戯紝妫€鏌ユ槸鍚﹀湪鐩爣鍖哄煙鍐�
     while (targetElement && targetElement !== document) {
       if (targetElement.classList) {
         if (isTouchEvent) {
-          // 触摸事件检查 aplayer-body 或 aplayer-lrc
+          // 瑙︽懜浜嬩欢妫€鏌� aplayer-body 鎴� aplayer-lrc
           if (targetElement.classList.contains('aplayer-body') || 
               targetElement.classList.contains('aplayer-lrc')) {
             isInTargetArea = true;
             break;
           }
         } else {
-          // 鼠标滚轮事件只检查 aplayer-body
+          // 榧犳爣婊氳疆浜嬩欢鍙鏌� aplayer-body
           if (targetElement.classList.contains('aplayer-body')) {
             isInTargetArea = true;
             break;
@@ -80,24 +80,24 @@ var heo = {
       targetElement = targetElement.parentNode;
     }
     
-    // 只有当在目标区域内时才改变 isScrolling
+    // 鍙湁褰撳湪鐩爣鍖哄煙鍐呮椂鎵嶆敼鍙� isScrolling
     if (isInTargetArea) {
-      // 取消任何正在进行的动画
+      // 鍙栨秷浠讳綍姝ｅ湪杩涜鐨勫姩鐢�
       if (animationFrameId !== null) {
         cancelAnimationFrame(animationFrameId);
         animationFrameId = null;
       }
       
-      // 设置isScrolling为true
+      // 璁剧疆isScrolling涓簍rue
       isScrolling = true;
       
-      // 清除之前的定时器
+      // 娓呴櫎涔嬪墠鐨勫畾鏃跺櫒
       if(scrollTimer !== null) {
         clearTimeout(scrollTimer);
       }
       
-      // 设置新的定时器，恢复isScrolling为false
-      // 触摸事件给予更长的时间
+      // 璁剧疆鏂扮殑瀹氭椂鍣紝鎭㈠isScrolling涓篺alse
+      // 瑙︽懜浜嬩欢缁欎簣鏇撮暱鐨勬椂闂�
       const timeoutDuration = isTouchEvent ? 4500 : 4000;
       scrollTimer = setTimeout(function() {
         isScrolling = false;
@@ -106,21 +106,21 @@ var heo = {
     }
   },
   
-  // 初始化滚动和触摸事件
+  // 鍒濆鍖栨粴鍔ㄥ拰瑙︽懜浜嬩欢
   initScrollEvents: function() {
-    // 监听鼠标滚轮事件
+    // 鐩戝惉榧犳爣婊氳疆浜嬩欢
     document.addEventListener('wheel', (event) => {
       this.handleScrollOrTouch(event, false);
     }, { passive: true });
     
-    // 监听触摸滑动事件
+    // 鐩戝惉瑙︽懜婊戝姩浜嬩欢
     document.addEventListener('touchmove', (event) => {
       this.handleScrollOrTouch(event, true);
     }, { passive: true });
   },
 
   scrollLyric: function () {
-    // 当 isScrolling 为 true 时，跳过执行
+    // 褰� isScrolling 涓� true 鏃讹紝璺宠繃鎵ц
     if (isScrolling) {
       return;
     }
@@ -130,9 +130,9 @@ var heo = {
 
     if (lrcContent && currentLyric) {
       let startScrollTop = lrcContent.scrollTop;
-      let targetScrollTop = currentLyric.offsetTop - (window.innerHeight - 150) * 0.3; // 目标位置在30%的dvh位置
+      let targetScrollTop = currentLyric.offsetTop - (window.innerHeight - 150) * 0.3; // 鐩爣浣嶇疆鍦�30%鐨刣vh浣嶇疆
       let distance = targetScrollTop - startScrollTop;
-      let duration = 600; // 缩短动画时间以提高流畅度
+      let duration = 600; // 缂╃煭鍔ㄧ敾鏃堕棿浠ユ彁楂樻祦鐣呭害
       let startTime = null;
 
       function easeOutQuad(t) {
@@ -140,7 +140,7 @@ var heo = {
       }
 
       function animateScroll(currentTime) {
-        // 如果用户正在手动滚动，停止动画
+        // 濡傛灉鐢ㄦ埛姝ｅ湪鎵嬪姩婊氬姩锛屽仠姝㈠姩鐢�
         if (isScrolling) {
           animationFrameId = null;
           return;
@@ -159,7 +159,7 @@ var heo = {
         }
       }
 
-      // 取消任何正在进行的动画
+      // 鍙栨秷浠讳綍姝ｅ湪杩涜鐨勫姩鐢�
       if (animationFrameId !== null) {
         cancelAnimationFrame(animationFrameId);
       }
@@ -173,30 +173,30 @@ var heo = {
     const playlistType = params.get("type") || "playlist";
 
     if (params.get("id") && params.get("server")) {
-      console.log("获取到自定义内容")
+      console.log("鑾峰彇鍒拌嚜瀹氫箟鍐呭")
       var id = params.get("id")
       var server = params.get("server")
       heoMusicPage.innerHTML = `<meting-js id="${id}" server="${server}" type="${playlistType}" mutex="true" preload="auto" order="random"></meting-js>`;
     } else {
-      console.log("无自定义内容")
+      console.log("鏃犺嚜瀹氫箟鍐呭")
       heoMusicPage.innerHTML = `<meting-js id="${userId}" server="${userServer}" type="${userType}" mutex="true" preload="auto" order="random"></meting-js>`;
     }
   },
 
   bindEvents: function () {
     var e = this;
-    // 添加歌词点击件
+    // 娣诲姞姝岃瘝鐐瑰嚮浠�
     if (this.lrc) {
       this.template.lrc.addEventListener('click', function (event) {
-        // 确保点击的是歌词 p 元素
+        // 纭繚鐐瑰嚮鐨勬槸姝岃瘝 p 鍏冪礌
         var target = event.target;
         if (target.tagName.toLowerCase() === 'p') {
-          // 获取所有歌词元素
+          // 鑾峰彇鎵€鏈夋瓕璇嶅厓绱�
           var lyrics = e.template.lrc.getElementsByTagName('p');
-          // 找到被点击歌词的索引
+          // 鎵惧埌琚偣鍑绘瓕璇嶇殑绱㈠紩
           for (var i = 0; i < lyrics.length; i++) {
             if (lyrics[i] === target) {
-              // 获取对应时间并跳转
+              // 鑾峰彇瀵瑰簲鏃堕棿骞惰烦杞�
               if (e.lrc.current[i]) {
                 var time = e.lrc.current[i][0];
                 e.seek(time);
@@ -211,7 +211,7 @@ var heo = {
       });
     }
   },
-  // 添加新方法处理歌词点击
+  // 娣诲姞鏂版柟娉曞鐞嗘瓕璇嶇偣鍑�
   addLyricClickEvent: function () {
     const lrcContent = document.querySelector('.aplayer-lrc-contents');
 
@@ -221,21 +221,21 @@ var heo = {
           const lyrics = lrcContent.getElementsByTagName('p');
           for (let i = 0; i < lyrics.length; i++) {
             if (lyrics[i] === event.target) {
-              // 获取当前播放器实例
+              // 鑾峰彇褰撳墠鎾斁鍣ㄥ疄渚�
               const player = ap;
-              // 使用播放器内部的歌词数据
+              // 浣跨敤鎾斁鍣ㄥ唴閮ㄧ殑姝岃瘝鏁版嵁
               if (player.lrc.current[i]) {
                 const time = player.lrc.current[i][0];
                 player.seek(time);
-                // 点击歌词后不再等待4s，立即跳转
+                // 鐐瑰嚮姝岃瘝鍚庝笉鍐嶇瓑寰�4s锛岀珛鍗宠烦杞�
                 isScrolling = false;
                 clearTimeout(scrollTimer);
-                // 如果当前是暂停状态,则恢复播放
+                // 濡傛灉褰撳墠鏄殏鍋滅姸鎬�,鍒欐仮澶嶆挱鏀�
                 if (player.paused) {
                   player.play();
                 }
               }
-              event.stopPropagation(); // 阻止事件冒泡
+              event.stopPropagation(); // 闃绘浜嬩欢鍐掓场
               break;
             }
           }
@@ -271,11 +271,11 @@ var heo = {
         ]
       });
     } else {
-      console.log('当前浏览器不支持 Media Session API');
+      console.log('褰撳墠娴忚鍣ㄤ笉鏀寔 Media Session API');
       document.title = `${audio.name} - ${audio.artist}`;
     }
   },
-  // 响应 MediaSession 标准媒体交互
+  // 鍝嶅簲 MediaSession 鏍囧噯濯掍綋浜や簰
   setupMediaSessionHandlers: function (aplayer) {
     if ('mediaSession' in navigator) {
       navigator.mediaSession.setActionHandler('play', () => {
@@ -286,11 +286,11 @@ var heo = {
         aplayer.pause();
       });
 
-      // 移除快进快退按钮
+      // 绉婚櫎蹇繘蹇€€鎸夐挳
       navigator.mediaSession.setActionHandler('seekbackward', null);
       navigator.mediaSession.setActionHandler('seekforward', null);
 
-      // 设置上一曲下一曲按钮
+      // 璁剧疆涓婁竴鏇蹭笅涓€鏇叉寜閽�
       navigator.mediaSession.setActionHandler('previoustrack', () => {
         aplayer.skipBack();
       });
@@ -299,7 +299,7 @@ var heo = {
         aplayer.skipForward();
       });
 
-      // 响应进度条拖动
+      // 鍝嶅簲杩涘害鏉℃嫋鍔�
       navigator.mediaSession.setActionHandler('seekto', (details) => {
         if (details.fastSeek && 'fastSeek' in aplayer.audio) {
           aplayer.audio.fastSeek(details.seekTime);
@@ -308,12 +308,12 @@ var heo = {
         }
       });
 
-      // 更新 Media Session 元数据
+      // 鏇存柊 Media Session 鍏冩暟鎹�
       aplayer.on('loadeddata', () => {
         heo.setMediaMetadata(aplayer, false);
       });
 
-      // 更新播放状态
+      // 鏇存柊鎾斁鐘舵€�
       aplayer.on('play', () => {
         if ('mediaSession' in navigator) {
           navigator.mediaSession.playbackState = 'playing';
@@ -328,7 +328,7 @@ var heo = {
         }
       });
 
-      // 监听时间更新事件
+      // 鐩戝惉鏃堕棿鏇存柊浜嬩欢
       aplayer.on('timeupdate', () => {
         heo.setMediaMetadata(aplayer, true);
       });
@@ -340,8 +340,8 @@ var heo = {
         const dominantColor = colorThief.getColor(img);
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (metaThemeColor) {
-          // 叠加rgba(0,0,0,0.4)的效果
-          const r = Math.round(dominantColor[0] * 0.6); // 原色 * 0.6 实现叠加黑色透明度0.4的效果
+          // 鍙犲姞rgba(0,0,0,0.4)鐨勬晥鏋�
+          const r = Math.round(dominantColor[0] * 0.6); // 鍘熻壊 * 0.6 瀹炵幇鍙犲姞榛戣壊閫忔槑搴�0.4鐨勬晥鏋�
           const g = Math.round(dominantColor[1] * 0.6);
           const b = Math.round(dominantColor[2] * 0.6);
           metaThemeColor.setAttribute('content', `rgb(${r},${g},${b})`);
@@ -360,11 +360,11 @@ var heo = {
 
   },
   
-  // 新增方法：将歌词滚动到顶部
+  // 鏂板鏂规硶锛氬皢姝岃瘝婊氬姩鍒伴《閮�
   scrollLyricToTop: function() {
     const lrcContent = document.querySelector('.aplayer-lrc');
     if (lrcContent) {
-      // 使用平滑滚动效果，但不过于缓慢
+      // 浣跨敤骞虫粦婊氬姩鏁堟灉锛屼絾涓嶈繃浜庣紦鎱�
       lrcContent.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -372,34 +372,34 @@ var heo = {
     }
   },
   
-  // 初始化所有事件
+  // 鍒濆鍖栨墍鏈変簨浠�
   init: function() {
     this.getCustomPlayList();
     this.initScrollEvents();
   }
 }
 
-//空格控制音乐
+//绌烘牸鎺у埗闊充箰
 document.addEventListener("keydown", function (event) {
-  //暂停开启音乐
+  //鏆傚仠寮€鍚煶涔�
   if (event.code === "Space") {
     event.preventDefault();
     ap.toggle();
 
   };
-  //切换下一曲
+  //鍒囨崲涓嬩竴鏇�
   if (event.keyCode === 39) {
     event.preventDefault();
     ap.skipForward();
 
   };
-  //切换上一曲
+  //鍒囨崲涓婁竴鏇�
   if (event.keyCode === 37) {
     event.preventDefault();
     ap.skipBack();
 
   }
-  //增加音量
+  //澧炲姞闊抽噺
   if (event.keyCode === 38) {
     if (volume <= 1) {
       volume += 0.1;
@@ -407,7 +407,7 @@ document.addEventListener("keydown", function (event) {
 
     }
   }
-  //减小音量
+  //鍑忓皬闊抽噺
   if (event.keyCode === 40) {
     if (volume >= 0) {
       volume += -0.1;
@@ -417,7 +417,7 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-// 监听窗口大小变化
+// 鐩戝惉绐楀彛澶у皬鍙樺寲
 window.addEventListener('resize', function() {
   if (window.innerWidth > 768) {
     ap.list.show();
@@ -427,6 +427,5 @@ window.addEventListener('resize', function() {
 
 });
 
-// 调用初始化
+// 璋冪敤鍒濆鍖�
 heo.init();
-
