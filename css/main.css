@@ -717,4 +717,8 @@ body .aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon.apla
   .aplayer .aplayer-lrc .aplayer-lrc-contents {
     margin-left: 0;
   }
+
+  .aplayer .aplayer-list ol li {
+    margin: 0;
+  }
 }
