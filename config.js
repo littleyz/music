@@ -1,6 +1,3 @@
-var userId = "8668419170";
-var userServer = "tencent";
-var userType = "playlist";
 // var localMusic = [{
 //     name: '重生之我在异乡为异客',
 //     artist: '王睿卓',
@@ -16,4 +13,4 @@ var userType = "playlist";
 //     lrc: '/music/落.lrc'
 // }
 // ];
-var remoteMusic = "./music.json"
+var remoteMusic = "./music.json";
